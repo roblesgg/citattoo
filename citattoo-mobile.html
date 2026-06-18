@@ -251,26 +251,28 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
 .trabajo-item{aspect-ratio:1;background:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden}
 
 /* ── CITAS ── */
-.page-header{padding:20px 16px 4px;background:var(--white);border-bottom:1px solid var(--border)}
-.page-title{font-size:22px;font-weight:800;letter-spacing:-.5px}
-.page-sub{font-size:12px;color:var(--text2);margin-top:2px}
-.cita-card{background:var(--white);margin-top:1px;padding:16px;cursor:pointer;border-bottom:1px solid var(--border)}
+.page-header{padding:16px 16px 12px;background:var(--white);border-bottom:1px solid var(--border)}
+.page-title{font-size:20px;font-weight:800;letter-spacing:-.5px}
+.page-sub{font-size:12px;color:var(--text2);margin-top:1px}
+.cita-card{background:var(--white);padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer}
 .cita-card:active{background:var(--bg)}
-.cita-artist-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.cita-av{width:36px;height:36px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cita-name-col{flex:1}
-.cita-artist{font-size:12px;font-weight:700}
-.cita-studio{font-size:10px;color:var(--text2)}
-.cita-title{font-size:15px;font-weight:800;letter-spacing:-.3px;margin-bottom:3px}
-.cita-when{font-size:12px;color:var(--text2);margin-bottom:12px}
-.pbar{background:var(--bg);border-radius:2px;height:2px;overflow:hidden}
+.cita-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cita-av{width:44px;height:44px;border-radius:50%;background:var(--bg);border:1px solid var(--border);flex-shrink:0;overflow:hidden}
+.cita-av img{width:100%;height:100%;object-fit:cover;display:block}
+.cita-name-col{flex:1;min-width:0}
+.cita-artist{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cita-studio{font-size:11px;color:var(--text2)}
+.cita-title{font-size:14px;font-weight:700;letter-spacing:-.2px;margin-bottom:4px}
+.cita-when{font-size:11px;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.pbar{background:var(--border);border-radius:2px;height:3px;overflow:hidden;flex:1}
 .pfill{height:100%;border-radius:2px;background:var(--accent)}
-.pbar-label{font-size:10px;color:var(--text3);margin-top:4px}
-.cita-actions{display:flex;gap:6px;margin-top:14px}
-.cita-btn{flex:1;padding:9px 6px;border:1px solid var(--border);border-radius:100px;background:transparent;color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px}
+.pbar-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.pbar-label{font-size:10px;color:var(--text3);white-space:nowrap;flex-shrink:0}
+.cita-actions{display:flex;gap:8px}
+.cita-btn{width:36px;height:36px;border:1px solid var(--border);border-radius:50%;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
 .cita-btn:active{background:var(--bg)}
-.status-pill{font-size:9px;font-weight:700;letter-spacing:.6px;padding:3px 9px;border-radius:100px;border:1px solid var(--border);color:var(--text2);text-transform:uppercase}
-.status-today{border-color:var(--text);color:var(--text);background:var(--text);color:#fff}
+.status-pill{font-size:9px;font-weight:700;letter-spacing:.5px;padding:3px 9px;border-radius:100px;border:1px solid var(--border);color:var(--text2);text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.status-today{background:var(--text);color:#fff;border-color:var(--text)}
 .info-box{background:var(--bg);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--text2);line-height:1.55;margin-bottom:2px}
 
 /* ── TATTOOS ── */
@@ -895,11 +897,13 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
     <div class="page-title">Mis citas</div>
     <div class="page-sub">Hola, Ana</div>
   </div>
+
   <div class="sec-label">Próximas</div>
 
+  <!-- Hoy -->
   <div class="cita-card">
-    <div class="cita-artist-row">
-      <div class="cita-av"></div>
+    <div class="cita-top">
+      <div class="cita-av"><img src="assets/fotos/perfil-tatuadores/carlos-vega.jpg" alt=""></div>
       <div class="cita-name-col">
         <div class="cita-artist">Carlos Vega</div>
         <div class="cita-studio">Blackline Studio</div>
@@ -907,43 +911,56 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
       <span class="status-pill status-today">Hoy</span>
     </div>
     <div class="cita-title">Manga japonesa — Sesión 2/4</div>
-    <div class="cita-when">Miércoles 11 Jun · 10:00 · ~4h</div>
-    <div class="info-box">Gran Vía 42, Madrid · <span style="text-decoration:underline;cursor:pointer" onclick="toast('Abriendo Maps...')">Ver mapa</span></div>
-    <div style="font-size:11px;color:var(--text2);margin:8px 0 4px">Ven con la zona hidratada · Sin alcohol 24h antes</div>
-    <div class="pbar" style="margin-bottom:4px"><div class="pfill" style="width:50%"></div></div>
-    <div class="pbar-label">Sesión 2 de 4 · 50% completado</div>
+    <div class="cita-when">
+      <svg width="11" height="11" color="var(--text3)"><use href="#ic-calendar"/></svg>
+      Mié 11 Jun · 10:00
+      <span style="color:var(--border2)">·</span>
+      ~4h
+    </div>
+    <div class="pbar-row">
+      <div class="pbar"><div class="pfill" style="width:50%"></div></div>
+      <span class="pbar-label">2/4 sesiones</span>
+    </div>
     <div class="cita-actions">
-      <button class="cita-btn" onclick="openChat()">
-        <svg width="13" height="13" color="var(--text2)"><use href="#ic-chat"/></svg> Chat
+      <button class="cita-btn" onclick="openChat()" title="Chat">
+        <svg width="15" height="15" color="var(--text2)"><use href="#ic-chat"/></svg>
       </button>
-      <button class="cita-btn" onclick="toast('Gran Vía 42, Madrid')">
-        <svg width="13" height="13" color="var(--text2)"><use href="#ic-map"/></svg> Mapa
+      <button class="cita-btn" onclick="toast('Gran Vía 42, Madrid')" title="Mapa">
+        <svg width="15" height="15" color="var(--text2)"><use href="#ic-map"/></svg>
       </button>
-      <button class="cita-btn" onclick="toast('Consentimiento firmado ✓')">
-        <svg width="13" height="13" color="var(--text2)"><use href="#ic-doc"/></svg> Doc
+      <button class="cita-btn" onclick="toast('Consentimiento firmado ✓')" title="Documento">
+        <svg width="15" height="15" color="var(--text2)"><use href="#ic-doc"/></svg>
       </button>
     </div>
   </div>
 
-  <div class="cita-card" style="opacity:.65">
-    <div class="cita-artist-row">
-      <div class="cita-av"></div>
+  <!-- Próxima -->
+  <div class="cita-card" style="opacity:.6">
+    <div class="cita-top">
+      <div class="cita-av"><img src="assets/fotos/perfil-tatuadores/carlos-vega.jpg" alt=""></div>
       <div class="cita-name-col">
         <div class="cita-artist">Carlos Vega</div>
         <div class="cita-studio">Blackline Studio</div>
       </div>
-      <span class="status-pill">En 14 días</span>
+      <span class="status-pill">14 días</span>
     </div>
     <div class="cita-title">Manga japonesa — Sesión 3/4</div>
-    <div class="cita-when">Miércoles 25 Jun · 10:00 · ~4h</div>
-    <div class="pbar"><div class="pfill" style="width:50%"></div></div>
-    <div class="pbar-label">50% del proyecto completado</div>
+    <div class="cita-when">
+      <svg width="11" height="11" color="var(--text3)"><use href="#ic-calendar"/></svg>
+      Mié 25 Jun · 10:00 · ~4h
+    </div>
+    <div class="pbar-row">
+      <div class="pbar"><div class="pfill" style="width:50%"></div></div>
+      <span class="pbar-label">2/4 sesiones</span>
+    </div>
   </div>
 
   <div class="sec-label">Pasadas</div>
+
+  <!-- Pasada -->
   <div class="cita-card" style="opacity:.4">
-    <div class="cita-artist-row">
-      <div class="cita-av"></div>
+    <div class="cita-top">
+      <div class="cita-av"><img src="assets/fotos/perfil-tatuadores/carlos-vega.jpg" alt=""></div>
       <div class="cita-name-col">
         <div class="cita-artist">Carlos Vega</div>
         <div class="cita-studio">Blackline Studio</div>
@@ -951,8 +968,12 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
       <span class="status-pill">Completada</span>
     </div>
     <div class="cita-title">Manga japonesa — Sesión 1/4</div>
-    <div class="cita-when">28 May · 5h</div>
+    <div class="cita-when">
+      <svg width="11" height="11" color="var(--text3)"><use href="#ic-calendar"/></svg>
+      28 May · 5h
+    </div>
   </div>
+
   <div class="spacer"></div>
 </div>
 
