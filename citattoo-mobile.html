@@ -1167,6 +1167,10 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
 
 <!-- BOTTOM NAV -->
 <div class="bnav" id="bnav" style="display:none">
+  <div class="nt" id="nt-favoritos" onclick="switchTab('favoritos')">
+    <svg width="22" height="22" color="var(--text)"><use href="#ic-bookmark"/></svg>
+    <span class="nt-l">Guardados</span>
+  </div>
   <div class="nt on" id="nt-descubrir" onclick="switchTab('descubrir')">
     <svg width="22" height="22" color="var(--text)"><use href="#ic-search"/></svg>
     <span class="nt-l">Descubrir</span>
@@ -1178,10 +1182,6 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
   <div class="nt" id="nt-tattoos" onclick="switchTab('tattoos')">
     <svg width="22" height="22" color="var(--text)"><use href="#ic-pen"/></svg>
     <span class="nt-l">Tattoos</span>
-  </div>
-  <div class="nt" id="nt-favoritos" onclick="switchTab('favoritos')">
-    <svg width="22" height="22" color="var(--text)"><use href="#ic-bookmark"/></svg>
-    <span class="nt-l">Guardados</span>
   </div>
 </div>
 
