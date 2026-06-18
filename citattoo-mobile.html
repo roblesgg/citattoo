@@ -155,22 +155,19 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
 .pro-av{width:44px;height:44px;border-radius:50%;background:var(--bg);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
 /* ── PRO CARDS (discover) ── */
 .pro-cards{display:flex;flex-direction:column;gap:1px;background:var(--border);margin-top:1px}
-.pro-card{background:var(--white);cursor:pointer;position:relative}
-.pro-card:active .pro-card-banner{opacity:.9}
-.pro-card-banner{height:160px;position:relative;background:#1a1a1a;overflow:visible}
+.pro-card{position:relative;height:96px;overflow:hidden;cursor:pointer}
+.pro-card:active{opacity:.88}
 .pro-card-banner-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.pro-card-chip{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border-radius:100px;padding:4px 10px;font-size:11px;font-weight:700;color:#fff;display:flex;align-items:center;gap:5px}
-.pro-card-heart{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.9);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.pro-card-av-wrap{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);z-index:2}
-.pro-card-av{width:80px;height:80px;border-radius:50%;border:3px solid var(--white);overflow:hidden;background:var(--bg)}
+.pro-card-scrim{position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.35) 100%)}
+.pro-card-inner{position:relative;z-index:1;display:flex;align-items:center;gap:14px;padding:0 14px;height:100%}
+.pro-card-av{width:62px;height:62px;border-radius:50%;border:2px solid rgba(255,255,255,.5);overflow:hidden;flex-shrink:0;background:#222}
 .pro-card-av img{width:100%;height:100%;object-fit:cover;display:block}
-.pro-card-body{padding:50px 20px 20px;text-align:center;position:relative;overflow:hidden}
-.pro-card-blur{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(48px);transform:scale(1.5);opacity:.65;pointer-events:none}
-.pro-card-overlay{position:absolute;inset:0;background:rgba(255,255,255,.28);pointer-events:none}
-.pro-card-content{position:relative;z-index:1}
-.pro-card-name{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:5px}
-.pro-card-loc{font-size:13px;color:var(--text);opacity:.72;margin-bottom:5px}
-.pro-card-styles{font-size:11px;color:var(--text2);letter-spacing:.3px}
+.pro-card-info{flex:1;min-width:0}
+.pro-card-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px;letter-spacing:-.2px}
+.pro-card-loc{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:3px;display:flex;align-items:center;gap:4px}
+.pro-card-styles{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.3px}
+.pro-card-rating{font-size:11px;font-weight:700;color:#f5c518;display:flex;align-items:center;gap:3px;margin-bottom:2px}
+.pro-card-save{position:absolute;top:10px;right:10px;z-index:2;background:rgba(0,0,0,.3);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .pro-info{flex:1;min-width:0}
 .pro-name{font-size:13px;font-weight:700;margin-bottom:1px}
 .pro-city{font-size:11px;color:var(--text2);margin-bottom:2px}
@@ -633,107 +630,90 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
     <div class="pro-cards">
 
       <div class="pro-card" onclick="openPro('carlos-vega')">
-        <div class="pro-card-banner">
-          <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/carlos-vega.avif" alt="">
-          <div class="pro-card-chip"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 4.9 · 87 trabajos</div>
-          <button class="pro-card-heart" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="15" height="15" color="var(--text)"><use href="#ic-bookmark"/></svg></button>
-          <div class="pro-card-av-wrap"><div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/carlos-vega.jpg" alt=""></div></div>
-        </div>
-        <div class="pro-card-body">
-          <img class="pro-card-blur" src="assets/fotos/banners-tatuadores/carlos-vega.avif" alt="">
-          <div class="pro-card-overlay"></div>
-          <div class="pro-card-content">
+        <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/carlos-vega.avif" alt="">
+        <div class="pro-card-scrim"></div>
+        <div class="pro-card-inner">
+          <div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/carlos-vega.jpg" alt=""></div>
+          <div class="pro-card-info">
+            <div class="pro-card-rating"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 4.9 · 87 trabajos</div>
             <div class="pro-card-name">Carlos Vega</div>
             <div class="pro-card-loc">Madrid · 2.1 km</div>
             <div class="pro-card-styles">JAPONÉS · REALISMO · BLACKWORK</div>
           </div>
         </div>
+        <button class="pro-card-save" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="14" height="14" color="#fff"><use href="#ic-bookmark"/></svg></button>
       </div>
 
       <div class="pro-card" onclick="openPro('maria-solano')">
-        <div class="pro-card-banner">
-          <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/maria-solano.avif" alt="">
-          <div class="pro-card-chip"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 5.0 · 63 trabajos</div>
-          <button class="pro-card-heart" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="15" height="15" color="var(--text)"><use href="#ic-bookmark"/></svg></button>
-          <div class="pro-card-av-wrap"><div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/maria-solano.jpg" alt=""></div></div>
-        </div>
-        <div class="pro-card-body">
-          <img class="pro-card-blur" src="assets/fotos/banners-tatuadores/maria-solano.avif" alt="">
-          <div class="pro-card-overlay"></div>
-          <div class="pro-card-content">
+        <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/maria-solano.avif" alt="">
+        <div class="pro-card-scrim"></div>
+        <div class="pro-card-inner">
+          <div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/maria-solano.jpg" alt=""></div>
+          <div class="pro-card-info">
+            <div class="pro-card-rating"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 5.0 · 63 trabajos</div>
             <div class="pro-card-name">María Solano</div>
             <div class="pro-card-loc">Barcelona · 5.2 km</div>
             <div class="pro-card-styles">FINELINE · ACUARELA</div>
           </div>
         </div>
+        <button class="pro-card-save" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="14" height="14" color="#fff"><use href="#ic-bookmark"/></svg></button>
       </div>
 
       <div class="pro-card" onclick="openPro('rafa-costa')">
-        <div class="pro-card-banner">
-          <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/rafa-costa.jpg" alt="">
-          <div class="pro-card-chip"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 4.7 · 124 trabajos</div>
-          <button class="pro-card-heart" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="15" height="15" color="var(--text)"><use href="#ic-bookmark"/></svg></button>
-          <div class="pro-card-av-wrap"><div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/rafa-costa.jpg" alt=""></div></div>
-        </div>
-        <div class="pro-card-body">
-          <img class="pro-card-blur" src="assets/fotos/banners-tatuadores/rafa-costa.jpg" alt="">
-          <div class="pro-card-overlay"></div>
-          <div class="pro-card-content">
+        <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/rafa-costa.jpg" alt="">
+        <div class="pro-card-scrim"></div>
+        <div class="pro-card-inner">
+          <div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/rafa-costa.jpg" alt=""></div>
+          <div class="pro-card-info">
+            <div class="pro-card-rating"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 4.7 · 124 trabajos</div>
             <div class="pro-card-name">Rafa Costa</div>
             <div class="pro-card-loc">Valencia · 3.4 km</div>
             <div class="pro-card-styles">REALISMO · BLACKWORK</div>
           </div>
         </div>
+        <button class="pro-card-save" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="14" height="14" color="#fff"><use href="#ic-bookmark"/></svg></button>
       </div>
 
       <div class="pro-card" onclick="openPro('ana-torres')">
-        <div class="pro-card-banner">
-          <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/ana-torres.jpg" alt="">
-          <div class="pro-card-chip"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 4.8 · 56 trabajos</div>
-          <button class="pro-card-heart" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="15" height="15" color="var(--text)"><use href="#ic-bookmark"/></svg></button>
-          <div class="pro-card-av-wrap"><div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/ana-torres.jpg" alt=""></div></div>
-        </div>
-        <div class="pro-card-body">
-          <img class="pro-card-blur" src="assets/fotos/banners-tatuadores/ana-torres.jpg" alt="">
-          <div class="pro-card-overlay"></div>
-          <div class="pro-card-content">
+        <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/ana-torres.jpg" alt="">
+        <div class="pro-card-scrim"></div>
+        <div class="pro-card-inner">
+          <div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/ana-torres.jpg" alt=""></div>
+          <div class="pro-card-info">
+            <div class="pro-card-rating"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 4.8 · 56 trabajos</div>
             <div class="pro-card-name">Ana Torres</div>
             <div class="pro-card-loc">Madrid · 1.2 km</div>
             <div class="pro-card-styles">JAPONÉS · TRADICIONAL</div>
           </div>
         </div>
+        <button class="pro-card-save" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="14" height="14" color="#fff"><use href="#ic-bookmark"/></svg></button>
       </div>
 
-      <div class="pro-card" onclick="toast('Laura M. · próximamente')">
-        <div class="pro-card-banner" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
-          <div class="pro-card-chip" style="opacity:.6">Próximamente</div>
-          <div class="pro-card-av-wrap"><div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/laura-m.avif" alt=""></div></div>
-        </div>
-        <div class="pro-card-body" style="background:#f0f0f4">
-          <div class="pro-card-content">
+      <div class="pro-card" onclick="toast('Laura M. · próximamente')" style="background:#1a1a2e">
+        <div class="pro-card-scrim" style="background:rgba(0,0,0,.5)"></div>
+        <div class="pro-card-inner">
+          <div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/laura-m.avif" alt=""></div>
+          <div class="pro-card-info">
             <div class="pro-card-name">Laura M.</div>
             <div class="pro-card-loc">Madrid · 2.7 km</div>
-            <div class="pro-card-styles">FINELINE</div>
+            <div class="pro-card-styles">FINELINE · Próximamente</div>
           </div>
         </div>
       </div>
 
       <div class="pro-card" onclick="openPro('marcos-r')">
-        <div class="pro-card-banner">
-          <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/marcos-r.jpg" alt="">
-          <div class="pro-card-chip"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 4.9 · 98 trabajos</div>
-          <button class="pro-card-heart" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="15" height="15" color="var(--text)"><use href="#ic-bookmark"/></svg></button>
-          <div class="pro-card-av-wrap"><div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/marcos-r.avif" alt=""></div></div>
-        </div>
-        <div class="pro-card-body">
-          <img class="pro-card-blur" src="assets/fotos/banners-tatuadores/marcos-r.jpg" alt="">
-          <div class="pro-card-overlay"></div>
-          <div class="pro-card-content">
+        <img class="pro-card-banner-img" src="assets/fotos/banners-tatuadores/marcos-r.jpg" alt="">
+        <div class="pro-card-scrim"></div>
+        <div class="pro-card-inner">
+          <div class="pro-card-av"><img src="assets/fotos/perfil-tatuadores/marcos-r.avif" alt=""></div>
+          <div class="pro-card-info">
+            <div class="pro-card-rating"><svg width="11" height="11" color="#f5c518"><use href="#ic-star"/></svg> 4.9 · 98 trabajos</div>
             <div class="pro-card-name">Marcos R.</div>
             <div class="pro-card-loc">Sevilla · 4.1 km</div>
             <div class="pro-card-styles">BLACKWORK · GEOMÉTRICO</div>
           </div>
         </div>
+        <button class="pro-card-save" onclick="event.stopPropagation();toggleHeart(this.querySelector('svg'))"><svg width="14" height="14" color="#fff"><use href="#ic-bookmark"/></svg></button>
       </div>
 
     </div>
