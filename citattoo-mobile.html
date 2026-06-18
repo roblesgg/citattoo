@@ -445,15 +445,9 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
 <!-- TOPBAR -->
 <div class="topbar" id="topbar">
   <div class="logo">Ci·Tattoo</div>
-  <div style="display:flex;align-items:center;gap:4px;margin-left:auto">
-    <button class="tb-action" onclick="openSheet('rol')">
-      <span>Vista</span>
-      <svg width="12" height="12"><use href="#ic-chevron" transform="rotate(90,6,6)"/></svg>
-    </button>
-    <button class="tb-action" style="padding:6px 8px" onclick="switchTab('perfil')" id="tb-perfil-btn">
-      <svg width="20" height="20" color="var(--text2)"><use href="#ic-user"/></svg>
-    </button>
-  </div>
+  <button class="tb-action" style="margin-left:auto;padding:6px 8px" onclick="switchTab('perfil')" id="tb-perfil-btn">
+    <svg width="22" height="22" color="var(--text)"><use href="#ic-user"/></svg>
+  </button>
 </div>
 
 <!-- DISCOVER TABS -->
