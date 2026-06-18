@@ -129,24 +129,24 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
 .heart-btn.saved svg path{fill:#fff;stroke:#fff}
 
 /* ── ESTUDIOS LIST ── */
-.estudio-list{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:1px}
+.estudio-list{display:flex;flex-direction:column;gap:1px;background:var(--border);margin-top:1px}
 .estudio-card{background:var(--white);cursor:pointer}
 .estudio-card:active{background:var(--bg)}
-.estudio-banner{height:130px;position:relative;background:var(--bg);overflow:visible}
+.estudio-banner{height:160px;position:relative;background:var(--bg);overflow:visible}
 .estudio-banner-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
 .estudio-banner-placeholder{width:100%;height:100%;background:var(--bg);display:flex;align-items:center;justify-content:center}
 .estudio-rating-chip{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);border-radius:100px;padding:4px 10px;display:flex;align-items:center;gap:5px}
 .estudio-rating-chip span{font-size:11px;font-weight:700;color:#fff}
 .estudio-heart-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.9);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.estudio-av-wrap{position:absolute;bottom:-36px;left:50%;transform:translateX(-50%);z-index:2}
-.estudio-av{width:72px;height:72px;border-radius:50%;border:3px solid var(--white);background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.estudio-body{padding:46px 12px 18px;text-align:center;border-top:none;position:relative;overflow:hidden}
+.estudio-av-wrap{position:absolute;bottom:-44px;left:50%;transform:translateX(-50%);z-index:2}
+.estudio-av{width:88px;height:88px;border-radius:50%;border:3px solid var(--white);background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.estudio-body{padding:56px 20px 22px;text-align:center;border-top:none;position:relative;overflow:hidden}
 .estudio-blur-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(48px);transform:scale(1.5);opacity:.65;pointer-events:none}
 .estudio-blur-overlay{position:absolute;inset:0;background:rgba(255,255,255,.28);pointer-events:none}
 .estudio-body-content{position:relative;z-index:1}
-.estudio-name{font-size:15px;font-weight:800;letter-spacing:.4px;margin-bottom:5px}
-.estudio-loc-row{display:flex;align-items:flex-start;justify-content:center;flex-wrap:wrap;gap:3px;color:var(--text);font-size:12px;margin-bottom:5px;opacity:.75}
-.estudio-tags{font-size:11px;color:var(--text2);letter-spacing:.2px;line-height:1.4}
+.estudio-name{font-size:17px;font-weight:800;letter-spacing:.4px;margin-bottom:6px}
+.estudio-loc-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px;color:var(--text);font-size:13px;margin-bottom:6px;opacity:.75}
+.estudio-tags{font-size:12px;color:var(--text2);letter-spacing:.2px;line-height:1.4}
 
 /* ── PROFESIONALES ── */
 .pro-list{display:flex;flex-direction:column;background:var(--white);margin-top:1px}
@@ -190,6 +190,37 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
 .pp-stab{flex:1;padding:12px 4px;text-align:center;font-size:11px;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;letter-spacing:.2px}
 .pp-stab.on{color:var(--text);border-bottom-color:var(--text)}
 .pp-panel{display:none}.pp-panel.on{display:block}
+/* ── RESEÑAS ── */
+.rv-panel{padding:16px 16px 0}
+.rv-summary{display:flex;align-items:flex-start;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:4px}
+.rv-big{text-align:center;min-width:64px}
+.rv-big-score{font-size:46px;font-weight:800;letter-spacing:-2px;line-height:1;display:block}
+.rv-big-label{font-size:11px;color:var(--text2);margin-top:3px}
+.rv-bars{flex:1;display:flex;flex-direction:column;gap:5px}
+.rv-bar-row{display:flex;align-items:center;gap:6px}
+.rv-bar-n{font-size:10px;color:var(--text2);width:14px;text-align:right;flex-shrink:0}
+.rv-bar-track{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.rv-bar-fill{height:100%;background:#f5c518;border-radius:3px}
+.rv-bar-pct{font-size:10px;color:var(--text3);width:24px;flex-shrink:0}
+.rv-write-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px;border:1.5px solid var(--border2);border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;background:transparent;color:var(--text);font-family:inherit;margin:12px 0 2px}
+.rv-list{padding-bottom:20px}
+.rv-item{padding:14px 0;border-bottom:1px solid var(--border)}
+.rv-item:last-child{border-bottom:none}
+.rv-row{display:flex;align-items:flex-start;gap:10px}
+.rv-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.rv-meta{flex:1}
+.rv-name-row{display:flex;align-items:baseline;gap:6px}
+.rv-name{font-size:13px;font-weight:700}
+.rv-when{font-size:11px;color:var(--text3)}
+.rv-stars-row{display:flex;gap:1px;margin:3px 0 5px;color:#f5c518;font-size:12px}
+.rv-texto{font-size:13px;color:var(--text2);line-height:1.5}
+/* sheet escribir reseña */
+.rv-picker{display:flex;justify-content:center;gap:8px;margin:14px 0 18px}
+.rv-pstar{font-size:36px;cursor:pointer;color:#ddd;transition:color .1s,transform .12s;line-height:1;user-select:none}
+.rv-pstar.lit{color:#f5c518}
+.rv-pstar:active{transform:scale(1.2)}
+.rv-textarea{width:100%;min-height:80px;border:1px solid var(--border2);border-radius:12px;padding:12px;font-size:14px;font-family:inherit;resize:none;outline:none;color:var(--text);background:var(--bg)}
+.rv-textarea:focus{border-color:var(--text);background:var(--white)}
 
 /* ── SERVICIOS ── */
 .svc-list{display:flex;flex-direction:column;gap:1px;background:var(--border)}
@@ -759,6 +790,9 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
       <span style="font-size:10px;color:var(--text3);border:1px solid var(--border);border-radius:100px;padding:3px 10px;font-weight:600">Guest</span>
     </div>
   </div>
+  <div class="sec-label">Reseñas</div>
+  <div class="rv-panel" id="rv-estudio-content"></div>
+  <div class="spacer"></div>
 </div>
 
 <!-- ══ PERFIL PROFESIONAL ══ -->
@@ -784,6 +818,7 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
     <div class="pp-stab on" id="pps-servicios" onclick="ppTab('servicios')">Servicios</div>
     <div class="pp-stab" id="pps-ofertas" onclick="ppTab('ofertas')">Ofertas</div>
     <div class="pp-stab" id="pps-trabajos" onclick="ppTab('trabajos')">Trabajos</div>
+    <div class="pp-stab" id="pps-resenas" onclick="ppTab('resenas')">Reseñas</div>
   </div>
 
   <div class="pp-panel on" id="ppc-servicios">
@@ -796,6 +831,11 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
 
   <div class="pp-panel" id="ppc-trabajos">
     <div class="trabajos-grid"></div>
+    <div class="spacer"></div>
+  </div>
+
+  <div class="pp-panel" id="ppc-resenas">
+    <div class="rv-panel" id="rv-pro-content"></div>
     <div class="spacer"></div>
   </div>
 </div>
@@ -1000,6 +1040,25 @@ body{background:#f5f5f5;display:flex;align-items:center;justify-content:center;h
   </div>
 </div>
 
+<!-- SHEET RESEÑA -->
+<div class="overlay" id="sheet-resena">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="rv-sheet-title">Dejar reseña</div>
+    <div class="sheet-sub" id="rv-sheet-sub">¿Cómo fue tu experiencia?</div>
+    <div class="rv-picker" id="rv-picker">
+      <span class="rv-pstar" data-v="1">★</span>
+      <span class="rv-pstar" data-v="2">★</span>
+      <span class="rv-pstar" data-v="3">★</span>
+      <span class="rv-pstar" data-v="4">★</span>
+      <span class="rv-pstar" data-v="5">★</span>
+    </div>
+    <textarea class="rv-textarea" id="rv-textarea" placeholder="Cuéntanos tu experiencia (opcional)…"></textarea>
+    <button class="btn btn-solid" style="margin-top:12px" onclick="submitResena()">Publicar reseña</button>
+    <button class="btn btn-outline" style="margin-top:8px" onclick="closeSheet('resena')">Cancelar</button>
+  </div>
+</div>
+
 <!-- CHAT -->
 <div class="chat-wrap" id="chat-wrap">
   <div class="topbar">
@@ -1063,6 +1122,15 @@ const PROS = {
     ],
     ofertas:[{t:'Flash de verano',h:'Hasta el 30 Jun',pa:'120€',p:'70€',c:['−42%','~2h']}],
     trabajos:['assets/fotos/proyectos/carlos-vega-t01.jpg','assets/fotos/proyectos/carlos-vega-t02.jpg','assets/fotos/proyectos/carlos-vega-t03.jpg','assets/fotos/proyectos/carlos-vega-t04.jpg','assets/fotos/proyectos/carlos-vega-t05.jpg','assets/fotos/proyectos/carlos-vega-t06.jpg'],
+    nResenas:87, dist5:83, dist4:13, dist3:3, dist2:1, dist1:0,
+    resenas:[
+      {ini:'L',col:'#7c3aed',nom:'Laura M.',r:5,d:'hace 3 días',txt:'Llevo años esperando este tatuaje y Carlos lo superó completamente. El sombreado japonés es brutal.'},
+      {ini:'R',col:'#0891b2',nom:'Rodrigo T.',r:5,d:'hace 1 semana',txt:'Manga de brazo completo en 4 sesiones. Puntual, limpio y muy profesional. No me imagino ir a otro artista.'},
+      {ini:'P',col:'#d97706',nom:'Patricia V.',r:4,d:'hace 2 semanas',txt:'Muy buen resultado, aunque en la segunda sesión tardó un poco más de lo acordado. El trabajo final está genial.'},
+      {ini:'M',col:'#059669',nom:'Marcos A.',r:5,d:'hace 1 mes',txt:'Mi tercer tatuaje con Carlos. Ya sé que siempre volvería. Un crack.'},
+      {ini:'E',col:'#e11d48',nom:'Elena S.',r:5,d:'hace 1 mes',txt:'Me explicó todo el proceso paso a paso. Muy cuidadoso con la higiene y con el cliente.'},
+      {ini:'J',col:'#78716c',nom:'Javi C.',r:3,d:'hace 2 meses',txt:'El resultado final está bien pero el diseño no era exactamente lo acordado en la primera consulta.'},
+    ],
   },
   'maria-solano':{
     nombre:'María Solano', estudio:'Soul Tattoo', dir:'Carrer de Mallorca 18, Barcelona', dist:'5.2 km',
@@ -1076,6 +1144,15 @@ const PROS = {
     ],
     ofertas:[{t:'Fineline mini',h:'Esta semana',pa:'80€',p:'50€',c:['−38%','~1h']}],
     trabajos:['assets/fotos/proyectos/maria-solano-t01.jpg','assets/fotos/proyectos/maria-solano-t02.jpg','assets/fotos/proyectos/maria-solano-p01.jpg','assets/fotos/proyectos/maria-solano-p02.jpg','assets/fotos/proyectos/maria-solano-p03.jpg','assets/fotos/proyectos/maria-solano-extra-01.avif'],
+    nResenas:63, dist5:94, dist4:5, dist3:1, dist2:0, dist1:0,
+    resenas:[
+      {ini:'C',col:'#0891b2',nom:'Carmen R.',r:5,d:'hace 2 días',txt:'El fineline más bonito que he visto. Líneas perfectas y un cuidado del cliente que no esperaba. Volveré sin duda.'},
+      {ini:'A',col:'#7c3aed',nom:'Alejandra P.',r:5,d:'hace 5 días',txt:'Pedí algo muy delicado y lo ejecutó a la perfección. Explicó todo el cuidado posterior con mucho detalle.'},
+      {ini:'S',col:'#059669',nom:'Sofía M.',r:5,d:'hace 2 semanas',txt:'Increíble artista. El tatuaje de acuarela quedó exactamente como el boceto. Muy recomendable.'},
+      {ini:'I',col:'#d97706',nom:'Irene G.',r:4,d:'hace 3 semanas',txt:'Muy buena experiencia, aunque tuve que esperar un mes para la cita. El resultado merece la espera.'},
+      {ini:'N',col:'#e11d48',nom:'Natalia V.',r:5,d:'hace 1 mes',txt:'Mi primer tatuaje y no podría haber elegido mejor artista. Muy calmada y profesional.'},
+      {ini:'B',col:'#78716c',nom:'Beatriz L.',r:5,d:'hace 2 meses',txt:'Segundo tatuaje con María y otra vez perfecta. Su técnica de fineline es inigualable.'},
+    ],
   },
   'rafa-costa':{
     nombre:'Rafa Costa', estudio:'Ink 34', dir:'Calle Colón 34, Valencia', dist:'3.4 km',
@@ -1088,6 +1165,15 @@ const PROS = {
     ],
     ofertas:[],
     trabajos:['assets/fotos/proyectos/rafa-costa-t01.jpg','assets/fotos/proyectos/rafa-costa-p01.jpg','assets/fotos/proyectos/rafa-costa-p02.jpg','assets/fotos/proyectos/rafa-costa-extra-01.jpg','assets/fotos/proyectos/rafa-costa-extra-02.jpg'],
+    nResenas:124, dist5:70, dist4:20, dist3:7, dist2:2, dist1:1,
+    resenas:[
+      {ini:'T',col:'#0891b2',nom:'Tomás B.',r:5,d:'hace 1 semana',txt:'Retrato fotorrealista en la espalda. El nivel de detalle es impresionante. Rafa es un artista de otra categoría.'},
+      {ini:'D',col:'#7c3aed',nom:'Diego M.',r:4,d:'hace 2 semanas',txt:'Gran trabajo de blackwork, aunque el estudio podría estar algo más organizado. El tatuaje quedó perfecto.'},
+      {ini:'A',col:'#d97706',nom:'Andrea C.',r:5,d:'hace 3 semanas',txt:'Realismo animal, un lobo en el brazo. No me cansaré de mirarme. Rafa sabe exactamente lo que hace.'},
+      {ini:'F',col:'#059669',nom:'Fernando R.',r:3,d:'hace 1 mes',txt:'El resultado es bueno pero tardó mucho más de lo estimado y hubo que añadir una sesión extra no prevista.'},
+      {ini:'V',col:'#e11d48',nom:'Verónica L.',r:5,d:'hace 1 mes',txt:'Mi segundo proyecto con Rafa y otra vez alucinante. El realismo que consigue es de museo.'},
+      {ini:'G',col:'#78716c',nom:'Guillermo P.',r:4,d:'hace 2 meses',txt:'Muy contento con el resultado. El proceso fue algo intenso pero el tatuaje es top.'},
+    ],
   },
   'ana-torres':{
     nombre:'Ana Torres', estudio:'Blackline Studio', dir:'Gran Vía 42, Madrid', dist:'1.2 km',
@@ -1100,6 +1186,15 @@ const PROS = {
     ],
     ofertas:[],
     trabajos:['assets/fotos/proyectos/ana-torres-t01.jpg','assets/fotos/proyectos/ana-torres-p01.jpg','assets/fotos/proyectos/ana-torres-p02.jpg','assets/fotos/proyectos/ana-torres-p03.jpg','assets/fotos/proyectos/ana-torres-extra-01.jpg','assets/fotos/proyectos/ana-torres-extra-02.jpg'],
+    nResenas:56, dist5:82, dist4:14, dist3:4, dist2:0, dist1:0,
+    resenas:[
+      {ini:'M',col:'#7c3aed',nom:'Marta F.',r:5,d:'hace 4 días',txt:'Tatuaje japonés en el muslo. Ana tiene una mano increíble para los colores y la composición. Muy orgullosa.'},
+      {ini:'P',col:'#0891b2',nom:'Paula D.',r:5,d:'hace 1 semana',txt:'Primer tatuaje y Ana lo hizo muy fácil. Tranquila, con mucha experiencia y el resultado es precioso.'},
+      {ini:'L',col:'#d97706',nom:'Luis K.',r:4,d:'hace 3 semanas',txt:'Buen trabajo en general. La consulta previa fue muy profesional. Tardé un poco en acostumbrarme al diseño.'},
+      {ini:'C',col:'#059669',nom:'Clara H.',r:5,d:'hace 1 mes',txt:'Tatuaje tradicional en el antebrazo. Los colores son vivos y limpios. Ana es una artista con mucho criterio.'},
+      {ini:'R',col:'#e11d48',nom:'Raquel O.',r:5,d:'hace 2 meses',txt:'Fui con una idea muy vaga y Ana la convirtió en algo espectacular. La escucha activa que tiene es un don.'},
+      {ini:'H',col:'#78716c',nom:'Hugo N.',r:3,d:'hace 2 meses',txt:'El tatuaje quedó bien pero esperaba más comunicación sobre el progreso del diseño antes de la sesión.'},
+    ],
   },
   'marcos-r':{
     nombre:'Marcos R.', estudio:'Dark Lines', dir:'Calle Betis 7, Sevilla', dist:'4.1 km',
@@ -1112,6 +1207,15 @@ const PROS = {
     ],
     ofertas:[{t:'Blackwork express',h:'Quedan 3 plazas',pa:'',p:'90€',c:['~2.5h','Este finde']}],
     trabajos:['assets/fotos/proyectos/marcos-r-p01.webp','assets/fotos/proyectos/marcos-r-p02.webp','assets/fotos/proyectos/marcos-r-extra-01.jpg'],
+    nResenas:98, dist5:85, dist4:11, dist3:3, dist2:1, dist1:0,
+    resenas:[
+      {ini:'O',col:'#0891b2',nom:'Oscar T.',r:5,d:'hace 2 días',txt:'Geométrico en el pecho. La precisión de Marcos es increíble, parece hecho con regla y compás. Una obra maestra.'},
+      {ini:'A',col:'#7c3aed',nom:'Alba S.',r:5,d:'hace 1 semana',txt:'Blackwork en la espalda completa. Marcos sabe exactamente cómo llevar un proyecto ambicioso de principio a fin.'},
+      {ini:'K',col:'#d97706',nom:'Kevin R.',r:4,d:'hace 2 semanas',txt:'Gran tatuaje geométrico. El único pero es que el estudio es algo pequeño y hay poco espacio de espera.'},
+      {ini:'N',col:'#059669',nom:'Noa B.',r:5,d:'hace 1 mes',txt:'Diseño mandala en el antebrazo. Marcos hace que el proceso sea una experiencia en sí mismo, no solo el resultado.'},
+      {ini:'S',col:'#e11d48',nom:'Samuel C.',r:5,d:'hace 1 mes',txt:'Segundo tatuaje con Marcos. Su estilo blackwork es único en España, no hay nadie como él.'},
+      {ini:'I',col:'#78716c',nom:'Iker M.',r:2,d:'hace 3 meses',txt:'El tatuaje quedó bien pero me esperaba más colaboración en el diseño. Lo sentí muy estándar para su portfolio.'},
+    ],
   },
 };
 
@@ -1228,6 +1332,8 @@ function openPro(id){
   document.getElementById('chat-pro-nombre').textContent=pro.nombre;
   document.getElementById('pp-map-btn').setAttribute('onclick',`toast('${pro.dir}')`);
 
+  buildResenas(pro.rating, pro.nResenas, pro.dist5, pro.dist4, pro.dist3, pro.dist2, pro.dist1, pro.resenas, 'rv-pro-content', pro.nombre);
+
   const topbar=document.getElementById('topbar');
   topbar.innerHTML=`<button class="tb-back" onclick="go('descubrir')"><svg width="22" height="22" color="var(--text)"><use href="#ic-back"/></svg></button><span class="tb-title">${pro.nombre}</span>`;
   document.getElementById('dtabs').style.display='none';
@@ -1316,6 +1422,14 @@ function go(id){
     const topbar=document.getElementById('topbar');
     topbar.innerHTML=`<button class="tb-back" onclick="go('descubrir')"><svg width="22" height="22" color="var(--text)"><use href="#ic-back"/></svg></button><span class="tb-title">Blackline Studio</span>`;
     document.getElementById('dtabs').style.display='none';
+    buildResenas('4.8',134,82,14,3,1,0,[
+      {ini:'S',col:'#7c3aed',nom:'Sara P.',r:5,d:'hace 1 día',txt:'El estudio es espectacular. Limpio, moderno y los tatuadores son de primer nivel. Carlos me hizo un japonés increíble.'},
+      {ini:'D',col:'#0891b2',nom:'Diego F.',r:5,d:'hace 4 días',txt:'Fui con mi pareja y los dos salimos encantados. La atención desde la recepción hasta el resultado final es impecable.'},
+      {ini:'L',col:'#d97706',nom:'Lucía M.',r:4,d:'hace 1 semana',txt:'Estudio muy profesional. La única pega es que el aparcamiento en Gran Vía es complicado. El tatuaje, 10.'},
+      {ini:'R',col:'#059669',nom:'Roberto K.',r:5,d:'hace 2 semanas',txt:'Ambiente increíble y equipo top. Ana Torres me hizo un tradicional que la gente para en la calle a mirar.'},
+      {ini:'V',col:'#e11d48',nom:'Valeria N.',r:5,d:'hace 1 mes',txt:'Estudio de referencia en Madrid sin duda. Precios justos para la calidad que ofrecen.'},
+      {ini:'A',col:'#78716c',nom:'Álvaro G.',r:3,d:'hace 2 meses',txt:'La calidad de los tatuajes es buena pero la espera para la cita es muy larga, más de 3 meses.'},
+    ],'rv-estudio-content','Blackline Studio');
     showScreen('estudio-detalle');
     return;
   }
@@ -1347,11 +1461,74 @@ function showDTab(tab){
 }
 
 function ppTab(tab){
-  ['servicios','ofertas','trabajos'].forEach(t=>{
+  ['servicios','ofertas','trabajos','resenas'].forEach(t=>{
     document.getElementById('ppc-'+t).classList.toggle('on',t===tab);
     document.getElementById('pps-'+t).classList.toggle('on',t===tab);
   });
 }
+
+function starsHtml(n,size){
+  size=size||13;
+  return Array.from({length:5},(_,i)=>`<span style="font-size:${size}px;color:${i<n?'#f5c518':'#ddd'}"">★</span>`).join('');
+}
+
+function buildResenas(rating, nRes, d5, d4, d3, d2, d1, list, ctxId, label){
+  const bars=[5,4,3,2,1].map((n,i)=>{
+    const pct=[d5,d4,d3,d2,d1][i];
+    return `<div class="rv-bar-row">
+      <span class="rv-bar-n">${n}</span>
+      <div class="rv-bar-track"><div class="rv-bar-fill" style="width:${pct}%"></div></div>
+      <span class="rv-bar-pct">${pct}%</span>
+    </div>`;
+  }).join('');
+  const items=list.map(rv=>`
+    <div class="rv-item">
+      <div class="rv-row">
+        <div class="rv-av" style="background:${rv.col}">${rv.ini}</div>
+        <div class="rv-meta">
+          <div class="rv-name-row"><span class="rv-name">${rv.nom}</span><span class="rv-when">${rv.d}</span></div>
+          <div class="rv-stars-row">${starsHtml(rv.r,12)}</div>
+          <div class="rv-texto">${rv.txt}</div>
+        </div>
+      </div>
+    </div>`).join('');
+  document.getElementById(ctxId).innerHTML=`
+    <div class="rv-summary">
+      <div class="rv-big">
+        <span class="rv-big-score">${rating}</span>
+        <div style="color:#f5c518;font-size:16px;margin-top:2px">${starsHtml(Math.round(parseFloat(rating)),16)}</div>
+        <div class="rv-big-label">${nRes} reseñas</div>
+      </div>
+      <div class="rv-bars">${bars}</div>
+    </div>
+    <button class="rv-write-btn" onclick="openSheetResena('${label}')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      Dejar reseña
+    </button>
+    <div class="rv-list">${items}</div>`;
+}
+
+let _rvTarget='';
+let _rvScore=0;
+function openSheetResena(label){
+  _rvTarget=label; _rvScore=0;
+  document.getElementById('rv-sheet-title').textContent='Reseña — '+label;
+  document.getElementById('rv-textarea').value='';
+  document.querySelectorAll('.rv-pstar').forEach(s=>s.classList.remove('lit'));
+  openSheet('resena');
+}
+function submitResena(){
+  if(!_rvScore){toast('Selecciona una puntuación');return;}
+  closeSheet('resena');
+  toast('¡Reseña publicada! Gracias 🙌');
+}
+/* star picker */
+document.querySelectorAll('.rv-pstar').forEach(s=>{
+  s.addEventListener('click',()=>{
+    _rvScore=+s.dataset.v;
+    document.querySelectorAll('.rv-pstar').forEach(p=>p.classList.toggle('lit',+p.dataset.v<=_rvScore));
+  });
+});
 
 function pdTab(tab){
   document.getElementById('pdt-artista').classList.toggle('on',tab==='artista');
