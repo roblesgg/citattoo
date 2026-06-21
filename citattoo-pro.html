@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>CiTattoo · Pro</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html,body{height:100%;background:#0d0d0d;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow:hidden}
+    *{scrollbar-width:none}
+    *::-webkit-scrollbar{display:none}
+    :root{
+      --bg:#0d0d0d;--bg2:#161616;--bg3:#1e1e1e;
+      --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+      --text:#f0f0f0;--text2:#999;--text3:#555;
+      --accent:#c9a227;--accent2:#e8b84b;
+      --green:#22c55e;--red:#ef4444;--orange:#f97316;
+    }
+
+    /* App wrapper */
+    #app{width:100%;max-width:430px;height:100%;margin:0 auto;display:flex;flex-direction:column;overflow:hidden;position:relative;background:var(--bg)}
+    @media(min-width:768px){
+      body{background:#111;display:flex;align-items:center;justify-content:center}
+      #app{max-height:90dvh;border-radius:22px;box-shadow:0 24px 64px rgba(0,0,0,.7)}
+    }
+
+    /* Topbar */
+    .topbar{padding:env(safe-area-inset-top,14px) 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0}
+    .tb-sub{display:flex;flex-direction:column}
+    .tb-logo{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.6px}
+    .tb-studio{font-size:15px;font-weight:700;color:var(--text)}
+    .tb-plan{font-size:10px;font-weight:800;background:var(--accent);color:#000;border-radius:5px;padding:2px 7px;letter-spacing:.6px;text-transform:uppercase}
+    .tb-bell{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;flex-shrink:0;margin-left:auto}
+    .tb-bell-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--red);border:1.5px solid var(--bg)}
+
+    /* Nav */
+    .bnav{display:flex;border-top:1px solid var(--border);background:var(--bg);flex-shrink:0;padding-bottom:env(safe-area-inset-bottom,0)}
+    .nt{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 10px;cursor:pointer;color:var(--text3);transition:color .15s}
+    .nt.on{color:var(--accent)}
+    .nt-label{font-size:10px;font-weight:600;letter-spacing:.2px}
+
+    /* Main / screens */
+    .main{flex:1;overflow-y:auto;overflow-x:hidden}
+    .screen{display:none}
+    .screen.on{display:block}
+
+    /* Common */
+    .sec{padding:16px 16px 0}
+    .sec-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+    .spacer{height:24px}
+    .card{margin:0 16px;background:var(--bg2);border-radius:16px;border:1px solid var(--border);overflow:hidden}
+
+    /* ── HOY ──────────────────── */
+    .rev-card{margin:16px 16px 0;background:linear-gradient(140deg,#1c1600,#191200,#100e00);border:1px solid rgba(201,162,39,.22);border-radius:18px;padding:20px 20px 18px}
+    .rev-lbl{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.9px;text-transform:uppercase;margin-bottom:5px}
+    .rev-amount{font-size:44px;font-weight:900;color:var(--text);letter-spacing:-2px;line-height:1}
+    .rev-goal-row{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+    .rev-goal-txt{font-size:12px;color:var(--text2)}
+    .rev-goal-txt span{color:var(--text);font-weight:600}
+    .rev-pct{font-size:13px;font-weight:800;color:var(--accent)}
+    .rev-track{height:5px;background:rgba(255,255,255,.09);border-radius:3px;margin:12px 0 5px;overflow:hidden}
+    .rev-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px}
+    .rev-note{font-size:11px;color:var(--text3)}
+
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin:14px 16px 0;border-radius:14px;overflow:hidden}
+    .stat{background:var(--bg2);padding:13px 6px;text-align:center}
+    .stat-n{font-size:22px;font-weight:900;letter-spacing:-0.5px;color:var(--text)}
+    .stat-l{font-size:10px;color:var(--text3);font-weight:500;margin-top:2px}
+
+    .next-card{margin:14px 16px 0;background:var(--bg2);border-radius:16px;border:1px solid var(--border2);overflow:hidden}
+    .next-hd{padding:9px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--border);background:rgba(249,115,22,.06)}
+    .next-pulse{width:7px;height:7px;border-radius:50%;background:var(--orange);flex-shrink:0;animation:pulse 1.8s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .next-hd-lbl{font-size:11px;font-weight:700;color:var(--orange);letter-spacing:.5px;text-transform:uppercase}
+    .next-hd-eta{margin-left:auto;font-size:11px;font-weight:600;color:var(--text2)}
+    .next-body{padding:14px}
+    .next-row{display:flex;align-items:center;gap:12px}
+    .av{display:flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;flex-shrink:0}
+    .next-info-artist{font-size:11px;color:var(--text2);font-weight:500}
+    .next-info-client{font-size:17px;font-weight:800;color:var(--text);margin:2px 0}
+    .next-info-service{font-size:13px;color:var(--text2)}
+    .next-chips{display:flex;gap:8px;margin-top:11px;padding-top:11px;border-top:1px solid var(--border)}
+    .chip-sm{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--text2);background:var(--bg3);padding:4px 9px;border-radius:100px;border:1px solid var(--border)}
+    .chip-sm strong{color:var(--text);font-weight:700}
+    .chip-paid{margin-left:auto;font-size:11px;font-weight:700;color:var(--green);background:rgba(34,197,94,.1);padding:4px 10px;border-radius:100px;border:1px solid rgba(34,197,94,.2)}
+
+    .artist-list-wrap{margin:14px 16px 0;background:var(--bg2);border-radius:16px;border:1px solid var(--border);overflow:hidden}
+    .artist-row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--border)}
+    .artist-row:last-child{border-bottom:none}
+    .a-info{flex:1}
+    .a-name{font-size:14px;font-weight:700;color:var(--text)}
+    .a-meta{font-size:11px;color:var(--text3);margin-top:1px}
+    .a-right{text-align:right}
+    .a-rev{font-size:14px;font-weight:800;color:var(--text)}
+    .a-dots{display:flex;gap:4px;margin-top:4px;justify-content:flex-end}
+    .dot{width:8px;height:8px;border-radius:50%}
+    .dot.done{background:var(--green)}
+    .dot.pend{background:rgba(255,255,255,.15)}
+
+    /* ── AGENDA ────────────────── */
+    .day-strip{display:flex;overflow-x:auto;gap:6px;padding:10px 16px;border-bottom:1px solid var(--border)}
+    .day-chip{flex-shrink:0;width:50px;text-align:center;padding:8px 4px;border-radius:12px;cursor:pointer;transition:background .15s}
+    .day-chip .dc-d{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase}
+    .day-chip .dc-n{font-size:22px;font-weight:900;color:var(--text);line-height:1}
+    .day-chip.on{background:var(--accent)}
+    .day-chip.on .dc-d{color:rgba(0,0,0,.5)}
+    .day-chip.on .dc-n{color:#000}
+
+    .af-strip{display:flex;overflow-x:auto;gap:6px;padding:10px 16px;border-bottom:1px solid var(--border)}
+    .af{flex-shrink:0;padding:5px 12px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid var(--border2);color:var(--text2);cursor:pointer;white-space:nowrap;transition:all .15s}
+    .af.on{color:#000;background:var(--accent);border-color:transparent}
+
+    .timeline{padding-bottom:32px}
+    .tl-row{display:flex;min-height:54px;border-bottom:1px solid var(--border)}
+    .tl-hour{width:54px;flex-shrink:0;padding:12px 10px 0;font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.2px}
+    .tl-hour.now{color:var(--orange)}
+    .tl-slots{flex:1;padding:6px 12px 6px 2px;display:flex;flex-direction:column;gap:5px}
+    .tl-block{border-radius:9px;padding:8px 10px;cursor:pointer;transition:opacity .15s}
+    .tl-b-artist{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+    .tl-b-client{font-size:13px;font-weight:700;color:rgba(255,255,255,.9)}
+    .tl-b-svc{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}
+    .tl-block.done{opacity:.42}
+    .tl-now-line{height:1.5px;background:var(--orange);margin:0 12px;position:relative}
+    .tl-now-line::before{content:'';position:absolute;left:-5px;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--orange)}
+
+    /* ── EQUIPO ───────────────── */
+    .eq-card{margin:0 16px;background:var(--bg2);border-radius:16px;border:1px solid var(--border);overflow:hidden}
+    .eq-hd{display:flex;align-items:center;gap:12px;padding:14px;border-bottom:1px solid var(--border)}
+    .eq-name{font-size:16px;font-weight:700;color:var(--text)}
+    .eq-role{font-size:12px;color:var(--text3);margin-top:2px}
+    .eq-badge{margin-left:auto;font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px;border:1px solid var(--border2);color:var(--text2);flex-shrink:0}
+    .eq-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+    .eq-stat{background:var(--bg2);padding:12px 8px;text-align:center}
+    .eq-stat-n{font-size:20px;font-weight:900;color:var(--text)}
+    .eq-stat-l{font-size:10px;color:var(--text3);margin-top:2px}
+
+    /* ── CAJA ─────────────────── */
+    .caja-hero{margin:16px 16px 0;background:var(--bg2);border-radius:18px;border:1px solid var(--border);padding:22px;text-align:center}
+    .caja-lbl{font-size:10px;color:var(--text3);letter-spacing:.9px;text-transform:uppercase;font-weight:700}
+    .caja-total{font-size:52px;font-weight:900;color:var(--text);letter-spacing:-2.5px;margin:4px 0 2px}
+    .caja-vs{font-size:13px;color:var(--green);font-weight:600}
+    .caja-track{height:5px;background:rgba(255,255,255,.09);border-radius:3px;margin:16px 0 6px;overflow:hidden}
+    .caja-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px}
+
+    .caja-artists{margin:14px 16px 0;display:flex;flex-direction:column;gap:0;background:var(--bg2);border-radius:16px;border:1px solid var(--border);overflow:hidden}
+    .ca-row{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border)}
+    .ca-row:last-child{border-bottom:none}
+    .ca-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .ca-info{flex:1}
+    .ca-name{font-size:14px;font-weight:600;color:var(--text)}
+    .ca-bar-wrap{height:3px;background:rgba(255,255,255,.09);border-radius:2px;margin-top:5px;width:100px;overflow:hidden}
+    .ca-bar-fill{height:100%;border-radius:2px}
+    .ca-citas{font-size:12px;color:var(--text3);margin-right:4px}
+    .ca-amount{font-size:14px;font-weight:800;color:var(--text)}
+
+    .pending-list{margin:14px 16px 0;background:var(--bg2);border-radius:16px;border:1px solid var(--border);overflow:hidden}
+    .pd-row{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-bottom:1px solid var(--border)}
+    .pd-row:last-child{border-bottom:none}
+    .pd-name{font-size:14px;font-weight:600;color:var(--text)}
+    .pd-sub{font-size:12px;color:var(--text3);margin-top:2px}
+    .pd-amount{font-size:16px;font-weight:800;color:var(--orange)}
+
+    /* ── ESTUDIO ──────────────── */
+    .estudio-hero{margin:16px 16px 0;background:var(--bg2);border-radius:16px;border:1px solid var(--border);overflow:hidden}
+    .eh-banner{height:88px;background:linear-gradient(135deg,#0e0015 0%,#1a0025 50%,#0a001a 100%);position:relative}
+    .eh-av{width:64px;height:64px;border-radius:50%;background:#1a1a1a;border:3px solid var(--bg2);position:absolute;bottom:-32px;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;font-size:26px}
+    .eh-body{padding:40px 16px 18px;text-align:center}
+    .eh-name{font-size:19px;font-weight:900;color:var(--text)}
+    .eh-meta{font-size:12px;color:var(--text3);margin-top:3px}
+    .eh-tags{display:flex;gap:8px;justify-content:center;margin-top:12px}
+    .eh-tag{font-size:11px;font-weight:700;padding:4px 11px;border-radius:100px}
+
+    .settings-list{margin:14px 16px 0;background:var(--bg2);border-radius:16px;border:1px solid var(--border);overflow:hidden}
+    .sl-row{display:flex;align-items:center;gap:12px;padding:14px;border-bottom:1px solid var(--border);cursor:pointer}
+    .sl-row:last-child{border-bottom:none}
+    .sl-icon{width:34px;height:34px;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    .sl-lbl{font-size:14px;font-weight:600;color:var(--text);flex:1}
+    .sl-val{font-size:12px;color:var(--text3)}
+    .sl-arr{color:var(--text3);font-size:18px;line-height:1}
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+    <symbol id="ic-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+    <symbol id="ic-team" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="ic-cash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></symbol>
+    <symbol id="ic-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="ic-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+    <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="ic-euro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M4 14h12M19.5 8.5a8 8 0 1 0 0 7"/></symbol>
+  </svg>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="tb-sub">
+      <div class="tb-logo">Ci·Tattoo · Pro</div>
+      <div class="tb-studio">Blackline Studio</div>
+    </div>
+    <span class="tb-plan">Studio</span>
+    <div class="tb-bell">
+      <svg width="17" height="17" color="var(--text2)"><use href="#ic-bell"/></svg>
+      <div class="tb-bell-dot"></div>
+    </div>
+  </div>
+
+  <!-- Screens -->
+  <div class="main">
+
+    <!-- ── HOY ────────────────────────────────── -->
+    <div class="screen on" id="s-hoy">
+
+      <div class="rev-card">
+        <div class="rev-lbl">Recaudación hoy</div>
+        <div class="rev-amount">€780</div>
+        <div class="rev-goal-row">
+          <div class="rev-goal-txt">Objetivo diario: <span>€1.200</span></div>
+          <div class="rev-pct">65%</div>
+        </div>
+        <div class="rev-track"><div class="rev-fill" style="width:65%"></div></div>
+        <div class="rev-note">4 citas pendientes · potencial +€420</div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat"><div class="stat-n">10</div><div class="stat-l">Citas</div></div>
+        <div class="stat"><div class="stat-n" style="color:var(--green)">4</div><div class="stat-l">Listas</div></div>
+        <div class="stat"><div class="stat-n" style="color:var(--orange)">6</div><div class="stat-l">Pend.</div></div>
+        <div class="stat"><div class="stat-n" style="font-size:15px;color:var(--accent)">0 🚫</div><div class="stat-l">No-show</div></div>
+      </div>
+
+      <div class="next-card">
+        <div class="next-hd">
+          <div class="next-pulse"></div>
+          <div class="next-hd-lbl">Próxima cita</div>
+          <div class="next-hd-eta">en 12 min</div>
+        </div>
+        <div class="next-body">
+          <div class="next-row">
+            <div class="av" style="width:44px;height:44px;font-size:16px;background:rgba(124,58,237,.18);color:#7c3aed">M</div>
+            <div>
+              <div class="next-info-artist">Miguel R.</div>
+              <div class="next-info-client">Marta V.</div>
+              <div class="next-info-service">Retrato realista · manga brazo</div>
+            </div>
+          </div>
+          <div class="next-chips">
+            <div class="chip-sm"><svg width="13" height="13" color="var(--text3)"><use href="#ic-clock"/></svg> <strong>13:00</strong>&nbsp;–&nbsp;16:00</div>
+            <div class="chip-sm"><svg width="13" height="13" color="var(--text3)"><use href="#ic-euro"/></svg>&nbsp;<strong>€320</strong></div>
+            <div class="chip-paid">Señal pagada</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec" style="margin-top:18px"><div class="sec-title">Artistas hoy</div></div>
+      <div class="artist-list-wrap">
+        <div class="artist-row">
+          <div class="av" style="width:36px;height:36px;font-size:14px;background:rgba(124,58,237,.18);color:#7c3aed">M</div>
+          <div class="a-info"><div class="a-name">Miguel R.</div><div class="a-meta">3 citas · en sesión</div></div>
+          <div class="a-right"><div class="a-rev">€340</div><div class="a-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot pend"></div></div></div>
+        </div>
+        <div class="artist-row">
+          <div class="av" style="width:36px;height:36px;font-size:14px;background:rgba(37,99,235,.18);color:#2563eb">S</div>
+          <div class="a-info"><div class="a-name">Sara T.</div><div class="a-meta">3 citas · en sesión</div></div>
+          <div class="a-right"><div class="a-rev">€180</div><div class="a-dots"><div class="dot done"></div><div class="dot pend"></div><div class="dot pend"></div></div></div>
+        </div>
+        <div class="artist-row">
+          <div class="av" style="width:36px;height:36px;font-size:14px;background:rgba(5,150,105,.18);color:#059669">K</div>
+          <div class="a-info"><div class="a-name">Kai L.</div><div class="a-meta">2 citas · completado</div></div>
+          <div class="a-right"><div class="a-rev" style="color:var(--green)">€260</div><div class="a-dots"><div class="dot done"></div><div class="dot done"></div></div></div>
+        </div>
+        <div class="artist-row">
+          <div class="av" style="width:36px;height:36px;font-size:14px;background:rgba(220,38,38,.18);color:#dc2626">A</div>
+          <div class="a-info"><div class="a-name">Alex M.</div><div class="a-meta">1 cita · pendiente</div></div>
+          <div class="a-right"><div class="a-rev" style="color:var(--text3)">—</div><div class="a-dots"><div class="dot pend"></div></div></div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ── AGENDA ─────────────────────────────── -->
+    <div class="screen" id="s-agenda">
+      <div class="day-strip">
+        <div class="day-chip"><div class="dc-d">lun</div><div class="dc-n">16</div></div>
+        <div class="day-chip"><div class="dc-d">mar</div><div class="dc-n">17</div></div>
+        <div class="day-chip on"><div class="dc-d">mié</div><div class="dc-n">18</div></div>
+        <div class="day-chip"><div class="dc-d">jue</div><div class="dc-n">19</div></div>
+        <div class="day-chip"><div class="dc-d">vie</div><div class="dc-n">20</div></div>
+        <div class="day-chip"><div class="dc-d">sáb</div><div class="dc-n">21</div></div>
+        <div class="day-chip"><div class="dc-d">dom</div><div class="dc-n">22</div></div>
+      </div>
+      <div class="af-strip">
+        <div class="af on" onclick="filterArtist(this,'all')">Todos</div>
+        <div class="af" onclick="filterArtist(this,'miguel')">Miguel R.</div>
+        <div class="af" onclick="filterArtist(this,'sara')">Sara T.</div>
+        <div class="af" onclick="filterArtist(this,'kai')">Kai L.</div>
+        <div class="af" onclick="filterArtist(this,'alex')">Alex M.</div>
+      </div>
+      <div class="timeline">
+        <div class="tl-row">
+          <div class="tl-hour">10:00</div>
+          <div class="tl-slots">
+            <div class="tl-block done" data-artist="miguel" style="background:rgba(124,58,237,.2);border-left:3px solid #7c3aed"><div class="tl-b-artist" style="color:#7c3aed">Miguel R.</div><div class="tl-b-client">Laura M.</div><div class="tl-b-svc">Manga japonesa · 3h · €280</div></div>
+            <div class="tl-block done" data-artist="sara" style="background:rgba(37,99,235,.2);border-left:3px solid #2563eb"><div class="tl-b-artist" style="color:#2563eb">Sara T.</div><div class="tl-b-client">Pablo R.</div><div class="tl-b-svc">Fineline · 1h30 · €120</div></div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-hour">11:00</div>
+          <div class="tl-slots">
+            <div class="tl-block done" data-artist="kai" style="background:rgba(5,150,105,.2);border-left:3px solid #059669"><div class="tl-b-artist" style="color:#059669">Kai L.</div><div class="tl-b-client">Ana G.</div><div class="tl-b-svc">Acuarela · 2h · €160</div></div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-hour">12:00</div>
+          <div class="tl-slots">
+            <div class="tl-block done" data-artist="kai" style="background:rgba(5,150,105,.2);border-left:3px solid #059669"><div class="tl-b-artist" style="color:#059669">Kai L.</div><div class="tl-b-client">Tom B.</div><div class="tl-b-svc">Tribal · 1h30 · €100</div></div>
+          </div>
+        </div>
+        <div class="tl-now-line"></div>
+        <div class="tl-row">
+          <div class="tl-hour now">13:00</div>
+          <div class="tl-slots">
+            <div class="tl-block" data-artist="miguel" style="background:rgba(124,58,237,.2);border-left:3px solid #7c3aed"><div class="tl-b-artist" style="color:#7c3aed">Miguel R.</div><div class="tl-b-client">Marta V.</div><div class="tl-b-svc">Retrato realista · 4h · €320</div></div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-hour">14:00</div>
+          <div class="tl-slots">
+            <div class="tl-block" data-artist="sara" style="background:rgba(37,99,235,.2);border-left:3px solid #2563eb"><div class="tl-b-artist" style="color:#2563eb">Sara T.</div><div class="tl-b-client">Jorge F.</div><div class="tl-b-svc">Lettering · 1h · €80</div></div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-hour">16:00</div>
+          <div class="tl-slots">
+            <div class="tl-block" data-artist="sara" style="background:rgba(37,99,235,.2);border-left:3px solid #2563eb"><div class="tl-b-artist" style="color:#2563eb">Sara T.</div><div class="tl-b-client">Elena C.</div><div class="tl-b-svc">Blackwork · 2h · €150</div></div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-hour">17:00</div>
+          <div class="tl-slots">
+            <div class="tl-block" data-artist="alex" style="background:rgba(220,38,38,.2);border-left:3px solid #dc2626"><div class="tl-b-artist" style="color:#dc2626">Alex M.</div><div class="tl-b-client">Rui S.</div><div class="tl-b-svc">Tradicional · 1h30 · €120</div></div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-hour">18:30</div>
+          <div class="tl-slots">
+            <div class="tl-block" data-artist="miguel" style="background:rgba(124,58,237,.2);border-left:3px solid #7c3aed"><div class="tl-b-artist" style="color:#7c3aed">Miguel R.</div><div class="tl-b-client">Claudia M.</div><div class="tl-b-svc">Neotradicional · 3h · €220</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EQUIPO ─────────────────────────────── -->
+    <div class="screen" id="s-equipo">
+      <div class="sec"><div class="sec-title">Equipo · 4 artistas</div></div>
+
+      <div class="eq-card">
+        <div class="eq-hd">
+          <div class="av" style="width:46px;height:46px;font-size:18px;background:rgba(124,58,237,.18);color:#7c3aed">M</div>
+          <div><div class="eq-name">Miguel R.</div><div class="eq-role">Tatuador senior · 5 años</div></div>
+          <div class="eq-badge">Senior</div>
+        </div>
+        <div class="eq-stats">
+          <div class="eq-stat"><div class="eq-stat-n">3</div><div class="eq-stat-l">Hoy</div></div>
+          <div class="eq-stat"><div class="eq-stat-n" style="color:var(--accent)">€340</div><div class="eq-stat-l">Recaudado</div></div>
+          <div class="eq-stat"><div class="eq-stat-n" style="color:var(--text2)">40%</div><div class="eq-stat-l">Comisión</div></div>
+        </div>
+      </div>
+
+      <div class="eq-card" style="margin-top:10px">
+        <div class="eq-hd">
+          <div class="av" style="width:46px;height:46px;font-size:18px;background:rgba(37,99,235,.18);color:#2563eb">S</div>
+          <div><div class="eq-name">Sara T.</div><div class="eq-role">Fineline & acuarela</div></div>
+          <div class="eq-badge">Pro</div>
+        </div>
+        <div class="eq-stats">
+          <div class="eq-stat"><div class="eq-stat-n">3</div><div class="eq-stat-l">Hoy</div></div>
+          <div class="eq-stat"><div class="eq-stat-n" style="color:var(--accent)">€180</div><div class="eq-stat-l">Recaudado</div></div>
+          <div class="eq-stat"><div class="eq-stat-n" style="color:var(--text2)">35%</div><div class="eq-stat-l">Comisión</div></div>
+        </div>
+      </div>
+
+      <div class="eq-card" style="margin-top:10px">
+        <div class="eq-hd">
+          <div class="av" style="width:46px;height:46px;font-size:18px;background:rgba(5,150,105,.18);color:#059669">K</div>
+          <div><div class="eq-name">Kai L.</div><div class="eq-role">Tribal & blackwork</div></div>
+          <div class="eq-badge">Pro</div>
+        </div>
+        <div class="eq-stats">
+          <div class="eq-stat"><div class="eq-stat-n" style="color:var(--green)">2✓</div><div class="eq-stat-l">Completado</div></div>
+          <div class="eq-stat"><div class="eq-stat-n" style="color:var(--green)">€260</div><div class="eq-stat-l">Recaudado</div></div>
+          <div class="eq-stat"><div class="eq-stat-n" style="color:var(--text2)">35%</div><div class="eq-stat-l">Comisión</div></div>
+        </div>
+      </div>
+
+      <div class="eq-card" style="margin-top:10px">
+        <div class="eq-hd">
+          <div class="av" style="width:46px;height:46px;font-size:18px;background:rgba(220,38,38,.18);color:#dc2626">A</div>
+          <div><div class="eq-name">Alex M.</div><div class="eq-role">Tradicional & japonés</div></div>
+          <div class="eq-badge">Junior</div>
+        </div>
+        <div class="eq-stats">
+          <div class="eq-stat"><div class="eq-stat-n">1</div><div class="eq-stat-l">Hoy</div></div>
+          <div class="eq-stat"><div class="eq-stat-n" style="color:var(--text3)">—</div><div class="eq-stat-l">Recaudado</div></div>
+          <div class="eq-stat"><div class="eq-stat-n" style="color:var(--text2)">30%</div><div class="eq-stat-l">Comisión</div></div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ── CAJA ───────────────────────────────── -->
+    <div class="screen" id="s-caja">
+      <div class="caja-hero">
+        <div class="caja-lbl">Total hoy</div>
+        <div class="caja-total">€780</div>
+        <div class="caja-vs">↑ 12% vs semana anterior</div>
+        <div style="margin-top:16px">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:7px"><span>Objetivo diario</span><span style="color:var(--text);font-weight:600">€1.200</span></div>
+          <div class="caja-track"><div class="caja-fill" style="width:65%"></div></div>
+        </div>
+      </div>
+
+      <div class="sec"><div class="sec-title">Por artista</div></div>
+      <div class="caja-artists">
+        <div class="ca-row">
+          <div class="ca-dot" style="background:#7c3aed"></div>
+          <div class="ca-info"><div class="ca-name">Miguel R.</div><div class="ca-bar-wrap"><div class="ca-bar-fill" style="width:44%;background:#7c3aed"></div></div></div>
+          <div class="ca-citas">3</div>
+          <div class="ca-amount">€340</div>
+        </div>
+        <div class="ca-row">
+          <div class="ca-dot" style="background:#059669"></div>
+          <div class="ca-info"><div class="ca-name">Kai L.</div><div class="ca-bar-wrap"><div class="ca-bar-fill" style="width:33%;background:#059669"></div></div></div>
+          <div class="ca-citas">2</div>
+          <div class="ca-amount">€260</div>
+        </div>
+        <div class="ca-row">
+          <div class="ca-dot" style="background:#2563eb"></div>
+          <div class="ca-info"><div class="ca-name">Sara T.</div><div class="ca-bar-wrap"><div class="ca-bar-fill" style="width:23%;background:#2563eb"></div></div></div>
+          <div class="ca-citas">3</div>
+          <div class="ca-amount">€180</div>
+        </div>
+        <div class="ca-row" style="border-bottom:none">
+          <div class="ca-dot" style="background:#dc2626"></div>
+          <div class="ca-info"><div class="ca-name">Alex M.</div><div class="ca-bar-wrap"><div class="ca-bar-fill" style="width:0%;background:#dc2626"></div></div></div>
+          <div class="ca-citas">1</div>
+          <div class="ca-amount" style="color:var(--text3)">—</div>
+        </div>
+      </div>
+
+      <div class="sec"><div class="sec-title">Pendiente de cobro</div></div>
+      <div class="pending-list">
+        <div class="pd-row">
+          <div><div class="pd-name">Marta V.</div><div class="pd-sub">Retrato realista · Miguel R. · 13:00</div></div>
+          <div class="pd-amount">€320</div>
+        </div>
+        <div class="pd-row">
+          <div><div class="pd-name">Jorge F. + Elena C.</div><div class="pd-sub">2 citas · Sara T.</div></div>
+          <div class="pd-amount">€230</div>
+        </div>
+        <div class="pd-row" style="border-bottom:none">
+          <div><div class="pd-name">Rui S. + Claudia M.</div><div class="pd-sub">2 citas tarde · Alex & Miguel</div></div>
+          <div class="pd-amount">€340</div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+    </div>
+
+    <!-- ── ESTUDIO ─────────────────────────────── -->
+    <div class="screen" id="s-estudio">
+      <div class="estudio-hero">
+        <div class="eh-banner"><div class="eh-av">🖤</div></div>
+        <div class="eh-body">
+          <div class="eh-name">Blackline Studio</div>
+          <div class="eh-meta">Carrer de Mallorca 18, Barcelona</div>
+          <div class="eh-tags">
+            <span class="eh-tag" style="background:rgba(201,162,39,.12);color:var(--accent);border:1px solid rgba(201,162,39,.25)">STUDIO PLAN</span>
+            <span class="eh-tag" style="background:var(--bg3);color:var(--text2);border:1px solid var(--border2)">4 artistas</span>
+            <span class="eh-tag" style="background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)">Abierto</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec"><div class="sec-title">Gestión</div></div>
+      <div class="settings-list">
+        <div class="sl-row"><div class="sl-icon">🕐</div><div class="sl-lbl">Horario de apertura</div><div class="sl-val">10:00–21:00</div><div class="sl-arr">›</div></div>
+        <div class="sl-row"><div class="sl-icon">💈</div><div class="sl-lbl">Servicios y tarifas</div><div class="sl-val">12 servicios</div><div class="sl-arr">›</div></div>
+        <div class="sl-row"><div class="sl-icon">📸</div><div class="sl-lbl">Portfolio del estudio</div><div class="sl-val">48 fotos</div><div class="sl-arr">›</div></div>
+        <div class="sl-row"><div class="sl-icon">📋</div><div class="sl-lbl">Consentimientos</div><div class="sl-val">3 plantillas</div><div class="sl-arr">›</div></div>
+        <div class="sl-row"><div class="sl-icon">⭐</div><div class="sl-lbl">Reseñas públicas</div><div class="sl-val">4.8 · 127 reseñas</div><div class="sl-arr">›</div></div>
+      </div>
+
+      <div class="sec"><div class="sec-title">Suscripción</div></div>
+      <div class="settings-list">
+        <div class="sl-row"><div class="sl-icon">⭐</div><div class="sl-lbl">Studio Plan activo</div><div class="sl-val" style="color:var(--accent)">€49/mes</div><div class="sl-arr">›</div></div>
+        <div class="sl-row" style="border-bottom:none"><div class="sl-icon">💳</div><div class="sl-lbl">Próxima factura</div><div class="sl-val">18 jul 2026</div><div class="sl-arr">›</div></div>
+      </div>
+
+      <div class="spacer"></div>
+    </div>
+
+  </div><!-- /main -->
+
+  <!-- Bottom nav -->
+  <div class="bnav">
+    <div class="nt on" id="nt-hoy" onclick="go('hoy')">
+      <svg width="22" height="22"><use href="#ic-home"/></svg>
+      <span class="nt-label">Hoy</span>
+    </div>
+    <div class="nt" id="nt-agenda" onclick="go('agenda')">
+      <svg width="22" height="22"><use href="#ic-cal"/></svg>
+      <span class="nt-label">Agenda</span>
+    </div>
+    <div class="nt" id="nt-equipo" onclick="go('equipo')">
+      <svg width="22" height="22"><use href="#ic-team"/></svg>
+      <span class="nt-label">Equipo</span>
+    </div>
+    <div class="nt" id="nt-caja" onclick="go('caja')">
+      <svg width="22" height="22"><use href="#ic-cash"/></svg>
+      <span class="nt-label">Caja</span>
+    </div>
+    <div class="nt" id="nt-estudio" onclick="go('estudio')">
+      <svg width="22" height="22"><use href="#ic-store"/></svg>
+      <span class="nt-label">Estudio</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function go(tab){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nt').forEach(n=>n.classList.remove('on'));
+  document.getElementById('s-'+tab).classList.add('on');
+  document.getElementById('nt-'+tab).classList.add('on');
+}
+
+function filterArtist(el,artist){
+  document.querySelectorAll('.af').forEach(a=>{a.classList.remove('on');a.style.background='';a.style.color='var(--text2)'});
+  el.classList.add('on');el.style.background='var(--accent)';el.style.color='#000';
+  document.querySelectorAll('.tl-block').forEach(b=>{
+    b.style.display=(artist==='all'||b.dataset.artist===artist)?'block':'none';
+  });
+}
+
+document.querySelectorAll('.day-chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.day-chip').forEach(x=>{x.classList.remove('on')});
+    c.classList.add('on');
+  });
+});
+</script>
+</body>
+</html>
